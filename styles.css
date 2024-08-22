@@ -1,0 +1,472 @@
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    } 50% {
+        transform: scale(1.15);
+    } 100% {
+        transform: scale(1);
+    }
+
+}
+
+@keyframes flipGreen {
+    0% {
+        transform: scaleY(1);
+        background-color: var(--black);
+    } 50% {
+        transform: scaleY(0);
+        background-color: var(--black);
+
+    } 100% {
+        transform: scaleY(1);
+        background-color: var(--green);
+    }
+}
+@keyframes flipYellow {
+    0% {
+        transform: scaleY(1);
+        background-color: var(--black);
+    } 50% {
+        transform: scaleY(0);
+        background-color: var(--black);
+
+    } 100% {
+        transform: scaleY(1);
+        background-color: var(--yellow);
+    }
+}
+@keyframes flipGrey {
+    0% {
+        transform: scaleY(1);
+        background-color: var(--black);
+    } 50% {
+        transform: scaleY(0);
+        background-color: var(--black);
+
+    } 100% {
+        transform: scaleY(1);
+        background-color: var(--dark-grey);
+    }
+}
+
+@keyframes shake {
+    0% {
+        translate: 0px 0px;
+    } 25% {
+        translate: -5px 0px;
+    } 50% {
+        translate: 0px 0px;
+    } 75% {
+        translate: 5px 0px;
+    } 100% {
+        translate: 0px 0px;
+    }
+}
+
+@keyframes correctGuess {
+    0% {
+        translate: 0px 0px;
+    } 25% {
+        translate: 0px -30px;
+    } 50% {
+        translate: 0px 3px;
+    } 75% {
+        translate: 0px -15px;
+    } 100% {
+        translate: 0px 0px;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    } 100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes fadeDown {
+    0% {
+        opacity: 1;
+        translate: -50% -50%;
+        visibility: visible;
+    } 100% {
+        opacity: 0;
+        translate: -50% -30%;
+        visibility: hidden;
+    }
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        translate: -50% -30%;
+        visibility: hidden;
+    } 100% {
+        opacity: 1;
+        translate: -50% -50%;
+        visibility: visible;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --grey: rgb(128,128,128);
+    --black: #121213;
+    --green: #538d4e;
+    --green-hover: #4a7547;
+    --yellow: rgb(181, 159, 59);
+    --grey: rgb(58, 58, 60);
+    --white: #d7dadc;
+    --light-grey: #565758;
+    --dark-grey: #3a3a3c;
+    --dark-grey-hover: #29292a;
+    --key-bg: #818384;
+    font-family: 'Clear Sans', 'Helvetica';
+}
+
+body {
+    background: var(--black);
+}
+
+#overlay {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background-color: #0000004e;
+    z-index: 900;
+    visibility: hidden;
+}
+
+#container {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    translate: -50% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* header */
+
+header {
+    border-bottom: 1px solid var(--dark-grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+    box-sizing: border-box;
+    padding: 10px 0;
+    margin-top: 5px;
+    width: fit-content;
+    position: absolute;
+    left: 50%;
+    translate: -50% 0;
+}
+
+header h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 3.2px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0 15px;
+    color: var(--white);
+}
+
+header svg {
+    fill: var(--light-grey);
+    height: 24px;
+}
+
+.menu-item {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* wordle board */
+
+#wordle {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 330px;
+    row-gap: 5.6px;
+}
+
+.row {
+    width: 330px;
+    height: 62px;   
+    display: flex;
+    column-gap: 5px;
+}
+
+.tile {
+    background-color: var(--black);
+    border: 2px solid var(--grey);
+    box-sizing: border-box;
+    width: 62px;
+    height: 62px;
+    text-transform: uppercase;
+    font-size: 2rem;
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    line-height: 2rem;
+    vertical-align: middle;
+}
+
+.pop {
+    animation: pop 0.08s ease-out;
+    border-color: var(--light-grey);
+}
+
+.green {
+    background-color: var(--green);
+    animation: flipGreen 400ms ease forwards;
+    border: none;
+}
+.yellow {
+    background-color: var(--yellow);
+    animation: flipYellow 400ms ease forwards;
+    border: none;
+}
+.grey {
+    background-color: var(--dark-grey);
+    animation: flipGrey 400ms ease forwards;
+    border: none;
+}
+
+.shake {
+    animation: shake 150ms ease-in forwards 3;
+}
+
+.correct {
+    animation: correctGuess 400ms forwards ease-in;
+}
+
+#toaster-container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    translate: -50% 0;
+    width: fit-content; 
+    height: fit-content; 
+    z-index: 1000; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+}
+
+.toaster {
+    background-color: var(--white);
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    width: fit-content;
+}
+
+.fade {
+    animation: fadeOut 0.3s;
+    animation-delay: 1s;
+}
+
+/* statistics board */ 
+
+#statistics-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 466px;
+    height: fit-content;
+    background-color: var(--black);
+    color: var(--white);
+    z-index: 1001;
+    box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 30px;
+    box-sizing: border-box;
+    border: 0.1px solid var(--dark-grey);
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1000;
+}
+
+
+#statistics-container > h1 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+#statistics {
+    display: flex;
+    align-items: first baseline;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.statistic-container {
+    width: 54px;
+    height: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.statistic {
+    font-size: 36px;
+    font-weight: 400;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#guess-distribution-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    width: 100%;
+}
+
+.guess-container {
+    display: flex;
+    width: 100%;
+}
+
+.guess-number {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: normal;
+}
+
+.bar {
+    margin-left: 5px;
+    width: 7%;
+    height: 20px;
+    background-color: var(--dark-grey);
+    text-align: center;
+}
+
+#close-button > svg {
+    fill: var(--light-grey);
+    cursor: pointer;
+    position: relative;
+    left: 95%;
+}
+
+#buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 16px;
+}
+
+#buttons-container button {
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 700;
+    vertical-align: middle;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    padding: 1px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+#play-again-button {
+    background-color: var(--green);
+    height: 50px;
+    width: 185px;
+    box-sizing: border-box;
+}
+#play-again-button:hover {
+    background-color: var(--green-hover);
+}
+
+#buttons-container svg {
+    padding-left: 8px;
+    fill: white;
+    height: 24px;
+}
+
+#share-button {
+    height: 50px;
+    width: 150px;
+    background-color: var(--dark-grey);
+}
+
+#share-button:hover {
+    background-color: var(--dark-grey-hover);
+}
+
+.fadeDown {
+    animation: fadeDown 0.15s forwards 1;
+}
+
+.fadeUp {
+    animation: fadeUp 0.15s forwards 1;
+}
+
+
+/* keybaord */
+
+#keyboard {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.keyboard-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 6px;
+}
+
+.key {
+    border-radius: 4px;
+    background-color: var(--key-bg);
+    border: none;
+    text-align: center;
+    color: var(--white);
+    box-sizing: border-box;
+    width: 43px;
+    height: 58px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.wide {
+    width: 63px;
+}
